@@ -1,0 +1,60 @@
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.preprocessing import image
+from google.colab import drive
+
+print("🔹 Mounting Google Drive...")
+drive.mount('/content/drive')
+print("✅ Drive mounted")
+
+# Load TOMATO model
+model = tf.keras.models.load_model(
+    "/content/drive/MyDrive/tomato_model_final.keras",
+    compile=False
+)
+print("✅ Tomato model loaded")
+
+# Tomato class labels (MUST match training folder order)
+tomato_classes = [
+    "bacterial_spot",
+    "early_blight",
+    "healthy",
+    "late_blight",
+    "leaf_mold",
+    "mosaic_virus",
+    "septoria_leaf_spot",
+    "target_spot",
+    "twospotted_spider_mite",
+    "yellow_leaf_curl_virus"
+]
+
+
+# Image path
+IMG_SIZE = (224, 224)
+img_path = "/content/drive/MyDrive/testing/tomato_img1.jpg"  # change if needed
+
+# Load & preprocess image
+img = image.load_img(img_path, target_size=IMG_SIZE)
+img_array = image.img_to_array(img)
+img_array = img_array / 255.0
+img_input = np.expand_dims(img_array, axis=0)
+
+# Predict
+pred = model.predict(img_input)
+idx = np.argmax(pred)
+confidence = float(pred[0][idx])
+label = class_names[idx]
+
+# Show image
+plt.imshow(img)
+plt.axis("off")
+plt.title(f"Prediction: {label}\nConfidence: {confidence*100:.2f}%")
+plt.show()
+
+# Final decision
+if label == "Healthy":
+    print("🌿 Healthy tomato leaf detected")
+else:
+    print(f"🦠 Tomato disease detected: {label}")
+    print(f"📊 Confidence: {confidence*100:.2f}%")

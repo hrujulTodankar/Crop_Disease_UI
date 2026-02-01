@@ -1,0 +1,57 @@
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow.keras.preprocessing import image
+from google.colab import drive
+
+print("🔹 Mounting Google Drive...")
+drive.mount('/content/drive')
+print("✅ Drive mounted")
+
+# Load model (SAFE)
+model = tf.keras.models.load_model(
+    "/content/drive/MyDrive/mango_model_final.keras",
+    compile=False
+)
+print("✅ Model loaded")
+
+# Class labels (same order as training)
+class_names = [
+    "Anthracnose",
+    "Bacterial Canker",
+    "Cutting Weevil",
+    "Die Back",
+    "Gall Midge",
+    "Healthy",
+    "Powdery Mildew",
+    "Sooty Mould"
+]
+
+# Image path
+IMG_SIZE = (224, 224)
+img_path = "/content/drive/MyDrive/testing/img6.jpg"
+
+# Load & preprocess image
+img = image.load_img(img_path, target_size=IMG_SIZE)
+img_array = image.img_to_array(img)
+img_array = img_array / 255.0
+img_input = np.expand_dims(img_array, axis=0)
+
+# Predict
+pred = model.predict(img_input)
+idx = np.argmax(pred)
+confidence = float(pred[0][idx])
+label = class_names[idx]
+
+# Show image
+plt.imshow(img)
+plt.axis("off")
+plt.title(f"Prediction: {label}\nConfidence: {confidence*100:.2f}%")
+plt.show()
+
+# Final decision (CORRECT LOGIC)
+if label == "Healthy":
+    print("🌿 Healthy leaf detected")
+else:
+    print(f"🦠 Disease detected: {label}")
+    print(f"📊 Confidence: {confidence*100:.2f}%")
