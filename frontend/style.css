@@ -1,0 +1,23 @@
+body {
+  font-family: Arial;
+  background: #e8f5e9;
+  text-align: center;
+}
+
+.container { margin-top: 30px; }
+
+button {
+  padding: 10px 20px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+#preview {
+  width: 200px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+.hidden { display: none; }

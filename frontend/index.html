@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crop Disease Detector</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+<div class="container">
+  <h1>🌿 Crop Disease Detection</h1>
+
+  <select id="cropSelect">
+    <option value="tomato">Tomato</option>
+    <option value="mango">Mango</option>
+  </select>
+
+  <input type="file" id="imageInput" accept="image/*" capture="environment">
+
+  <img id="preview" class="hidden"/>
+
+  <button id="predictBtn">Analyze</button>
+
+  <div id="loading" class="hidden">Analyzing...</div>
+
+  <div id="results" class="hidden">
+    <h2>Top Predictions</h2>
+    <ul id="predictionList"></ul>
+
+    <h3>Treatment Suggestion</h3>
+    <p id="treatmentText"></p>
+  </div>
+</div>
+
+<script src="treatments.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
