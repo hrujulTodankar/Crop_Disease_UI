@@ -1,23 +1,71 @@
 body {
-  font-family: Arial;
-  background: #e8f5e9;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom right, #e8f5e9, #ffffff);
+}
+
+.header {
+  text-align: center;
+  padding: 18px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1b5e20;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  width: 90%;
+  max-width: 450px;
+  background: white;
+  margin: 15px;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
   text-align: center;
 }
 
-.container { margin-top: 30px; }
+select, input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #c8e6c9;
+}
 
 button {
-  padding: 10px 20px;
-  background: green;
-  color: white;
+  margin-top: 15px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 12px;
   border: none;
-  border-radius: 6px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #43a047, #2e7d32);
+  color: white;
 }
 
 #preview {
-  width: 200px;
+  width: 100%;
   margin-top: 10px;
-  border-radius: 10px;
+  border-radius: 12px;
+}
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 10px 0;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
 }
 
 .hidden { display: none; }

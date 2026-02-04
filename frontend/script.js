@@ -1,46 +1,41 @@
 const API_URL = "https://crop-disease-backend-fdyh.onrender.com/predict";
 
-const imageInput = document.getElementById("imageInput");
 const preview = document.getElementById("preview");
+const loading = document.getElementById("loading");
+const resultBox = document.getElementById("resultBox");
 
-imageInput.onchange = () => {
-  const file = imageInput.files[0];
-  preview.src = URL.createObjectURL(file);
+document.getElementById("imageInput").onchange = (e) => {
+  preview.src = URL.createObjectURL(e.target.files[0]);
   preview.classList.remove("hidden");
 };
 
 document.getElementById("predictBtn").onclick = async () => {
-  const file = imageInput.files[0];
+  const file = document.getElementById("imageInput").files[0];
   const crop = document.getElementById("cropSelect").value;
 
   if (!file) return alert("Upload image");
 
-  document.getElementById("loading").classList.remove("hidden");
+  loading.classList.remove("hidden");
 
   const formData = new FormData();
   formData.append("crop", crop);
   formData.append("image", file);
 
-  const response = await fetch(API_URL, { method: "POST", body: formData });
-  const data = await response.json();
+  const res = await fetch(API_URL, { method: "POST", body: formData });
+  const data = await res.json();
 
-  document.getElementById("loading").classList.add("hidden");
-  document.getElementById("results").classList.remove("hidden");
+  loading.classList.add("hidden");
 
-  showTopPredictions(data.top_predictions);
+  resultBox.innerHTML = `
+    <h3>${data.prediction}</h3>
+    <p>Confidence: ${data.confidence}%</p>
+    <p><strong>Treatment:</strong> ${TREATMENTS[data.prediction] || "No data"}</p>
+  `;
+
+  showScreen("result");
 };
 
-function showTopPredictions(predictions) {
-  const list = document.getElementById("predictionList");
-  list.innerHTML = "";
-
-  predictions.slice(0,3).forEach(p => {
-    const li = document.createElement("li");
-    li.innerText = `${p.label} (${p.confidence}%)`;
-    list.appendChild(li);
-  });
-
-  const topDisease = predictions[0].label;
-  document.getElementById("treatmentText").innerText =
-    TREATMENTS[topDisease] || "No treatment info available.";
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
 }

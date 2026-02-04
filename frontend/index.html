@@ -1,35 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Crop Disease Detector</title>
+  <title>Smart Crop Disease Detection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="container">
-  <h1>🌿 Crop Disease Detection</h1>
+<div class="app">
 
-  <select id="cropSelect">
-    <option value="tomato">Tomato</option>
-    <option value="mango">Mango</option>
-  </select>
+  <header class="header">🌿 Smart Crop Disease Detection</header>
 
-  <input type="file" id="imageInput" accept="image/*" capture="environment">
+  <!-- HOME SCREEN -->
+  <section id="home" class="screen active">
+    <div class="card">
+      <h2>Upload Leaf Image</h2>
 
-  <img id="preview" class="hidden"/>
+      <select id="cropSelect">
+        <option value="tomato">Tomato</option>
+        <option value="mango">Mango</option>
+      </select>
 
-  <button id="predictBtn">Analyze</button>
+      <input type="file" id="imageInput" accept="image/*">
+      <img id="preview" class="hidden">
 
-  <div id="loading" class="hidden">Analyzing...</div>
+      <button id="predictBtn">Analyze</button>
+      <p id="loading" class="hidden">Analyzing...</p>
+    </div>
+  </section>
 
-  <div id="results" class="hidden">
-    <h2>Top Predictions</h2>
-    <ul id="predictionList"></ul>
+  <!-- RESULT SCREEN -->
+  <section id="result" class="screen">
+    <div class="card">
+      <h2>Detection Result</h2>
+      <div id="resultBox"></div>
+      <button onclick="showScreen('home')">Back</button>
+    </div>
+  </section>
 
-    <h3>Treatment Suggestion</h3>
-    <p id="treatmentText"></p>
-  </div>
+  <!-- SENSOR SCREEN -->
+  <section id="sensors" class="screen">
+    <div class="card">
+      <h2>Sensor Data</h2>
+      <p>🌡 Temperature: 28°C</p>
+      <p>💧 Humidity: 72%</p>
+      <p>🌱 Soil Moisture: 55%</p>
+    </div>
+  </section>
+
+  <!-- HISTORY SCREEN -->
+  <section id="history" class="screen">
+    <div class="card">
+      <h2>History</h2>
+      <p>No previous scans</p>
+    </div>
+  </section>
+
+  <!-- NAVIGATION -->
+  <nav class="nav">
+    <button onclick="showScreen('home')">Home</button>
+    <button onclick="showScreen('result')">Result</button>
+    <button onclick="showScreen('sensors')">Sensors</button>
+    <button onclick="showScreen('history')">History</button>
+  </nav>
+
 </div>
 
 <script src="treatments.js"></script>

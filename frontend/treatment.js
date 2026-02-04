@@ -1,8 +1,7 @@
 const TREATMENTS = {
-  "Late Blight": "Use copper fungicide. Remove infected leaves.",
+  "Late Blight": "Use copper fungicide and remove infected leaves.",
   "Early Blight": "Apply neem oil spray weekly.",
-  "Anthracnose": "Prune affected parts and use fungicide.",
-  "Powdery Mildew": "Spray sulfur-based fungicide.",
-  "Healthy": "No disease detected. Maintain proper watering."
+  "Anthracnose": "Prune affected areas and apply fungicide.",
+  "Powdery Mildew": "Use sulfur-based spray.",
+  "Healthy": "Plant is healthy. Maintain good care."
 };
-export { TREATMENTS };
